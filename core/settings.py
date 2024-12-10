@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'drf_yasg',
-    'api_emblema.apps.ApiEmblemaConfig',
 ]
 
 REST_FRAMEWORK = {

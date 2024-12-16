@@ -13,8 +13,23 @@ from .serializers import *
 from rest_framework.decorators import action
 from django.db import transaction
 # Create your views here.
-
+from rest_framework import generics
+from .models import TipoCurso
+from .serializers import TipoCursoSerializer
 logger = logging.getLogger(__name__)
+
+
+
+
+class TipoCursoListCreateView(generics.ListCreateAPIView):
+    queryset = TipoCurso.objects.all()
+    serializer_class = TipoCursoSerializer
+
+
+class TipoCursoRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TipoCurso.objects.all()
+    serializer_class = TipoCursoSerializer
+
 
 class UserLoginView(APIView):
     permission_classes = [AllowAny]

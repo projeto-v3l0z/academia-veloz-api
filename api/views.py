@@ -19,18 +19,6 @@ from .serializers import TipoCursoSerializer
 logger = logging.getLogger(__name__)
 
 
-
-
-class TipoCursoListCreateView(generics.ListCreateAPIView):
-    queryset = TipoCurso.objects.all()
-    serializer_class = TipoCursoSerializer
-
-
-class TipoCursoRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = TipoCurso.objects.all()
-    serializer_class = TipoCursoSerializer
-
-
 class UserLoginView(APIView):
     permission_classes = [AllowAny]
     http_method_names = ['post', 'get']
@@ -99,5 +87,21 @@ class UserViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(username__icontains=username)
         if email:
             queryset = queryset.filter(email__icontains=email)
+        
+        return queryset
+    
+class TipoCursoViewSet(viewsets.ModelViewSet):
+    queryset = TipoCurso.objects.all()
+    serializer_class = TipoCursoSerializer
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
+
+    def get_queryset(self):
+        queryset = TipoCurso.objects.all()
+        nome = self.request.query_params.get('nome')
+
+        if nome:
+            queryset = queryset.filter(nome__icontains=nome)
+        
         
         return queryset

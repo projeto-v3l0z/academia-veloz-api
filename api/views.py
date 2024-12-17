@@ -105,3 +105,26 @@ class TipoCursoViewSet(viewsets.ModelViewSet):
         
         
         return queryset
+    
+class CursoViewSet(viewsets.ModelViewSet):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
+
+    def get_queryset(self):
+        queryset = Curso.objects.all()
+        tipo = self.request.query_params.get('tipo')
+        if tipo:
+            queryset = queryset.filter(tipo=tipo)
+        return queryset
+
+class ModuloViewSet(viewsets.ModelViewSet):
+    queryset = Modulo.objects.all()
+    serializer_class = ModuloSerializer
+    permission_classes = [IsAuthenticated]
+
+class AulaViewSet(viewsets.ModelViewSet):
+    queryset = Aula.objects.all()
+    serializer_class = AulaSerializer
+    permission_classes = [IsAuthenticated]

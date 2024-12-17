@@ -5,7 +5,7 @@ from accounts.models import User
 
 from .models import *
 from rest_framework import serializers
-from .models import TipoCurso
+from .models import TipoCurso, Curso, Modulo, Aula
 
 class UserSerializer(ModelSerializer):
     class Meta:
@@ -17,4 +17,23 @@ class UserSerializer(ModelSerializer):
 class TipoCursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = TipoCurso
+        fields = '__all__'
+
+class AulaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Aula
+        fields = '__all__'
+
+class ModuloSerializer(serializers.ModelSerializer):
+    aulas = AulaSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Modulo
+        fields = '__all__'
+
+class CursoSerializer(serializers.ModelSerializer):
+    modulos = ModuloSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Curso
         fields = '__all__'

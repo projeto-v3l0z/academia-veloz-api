@@ -14,8 +14,8 @@ from rest_framework.decorators import action
 from django.db import transaction
 # Create your views here.
 from rest_framework import generics
-from .models import TipoCurso
-from .serializers import TipoCursoSerializer
+from .models import Curso, Modulo, Aula
+from .serializers import CursoSerializer, ModuloSerializer, AulaSerializer
 logger = logging.getLogger(__name__)
 
 
@@ -90,22 +90,7 @@ class UserViewSet(viewsets.ModelViewSet):
         
         return queryset
     
-class TipoCursoViewSet(viewsets.ModelViewSet):
-    queryset = TipoCurso.objects.all()
-    serializer_class = TipoCursoSerializer
-    permission_classes = [IsAuthenticated]
-    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
 
-    def get_queryset(self):
-        queryset = TipoCurso.objects.all()
-        nome = self.request.query_params.get('nome')
-
-        if nome:
-            queryset = queryset.filter(nome__icontains=nome)
-        
-        
-        return queryset
-    
 class CursoViewSet(viewsets.ModelViewSet):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer

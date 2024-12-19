@@ -8,7 +8,6 @@ from .views import *
 router = DefaultRouter()
 
 router.register('users', UserViewSet, basename='users')
-router.register('tipo-curso', TipoCursoViewSet, basename='tipoCurso')
 router.register(r'cursos', CursoViewSet, basename='cursos')
 router.register(r'modulos', ModuloViewSet, basename='modulos')
 router.register(r'aulas', AulaViewSet, basename='aulas')

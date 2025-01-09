@@ -12,10 +12,6 @@ class UserSerializer(ModelSerializer):
         model = User
         fields = ['id', 'username', 'email', 'complete_name', 'is_active', 'is_staff', 'is_superuser']
 
-
-
-
-
 class AulaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aula

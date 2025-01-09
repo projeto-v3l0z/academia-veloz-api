@@ -7,6 +7,12 @@ class TipoCurso(models.TextChoices):
     IMERSAO = 'Imersão', 'Imersão'
 
 class Curso(models.Model):
+    tipos_curso = [
+        ('Público', 'Público'),
+        ('Assinatura', 'Assinatura'),
+        ('Imersão', 'Imersão'),
+    ]
+
     nome = models.CharField(max_length=150)
     descricao = models.TextField(blank=True, null=True)
     tipo = models.CharField(max_length=20, choices=TipoCurso.choices, default=TipoCurso.PUBLICO)
@@ -25,14 +31,15 @@ class Modulo(models.Model):
         return self.titulo
 
 class Aula(models.Model):
-    class TipoConteudo(models.TextChoices):
-        VIDEO = 'Vídeo', 'Vídeo'
-        TEXTO = 'Texto', 'Texto'
-        ARQUIVO = 'Arquivo', 'Arquivo'
+    tipos_aula = [
+        ('TEXTO', 'Texto'),
+        ('VIDEO', 'Vídeo'),
+        ('ARQUIVO', 'Arquivo'),
+    ]
 
     modulo = models.ForeignKey(Modulo, related_name='aulas', on_delete=models.CASCADE)
     titulo = models.CharField(max_length=150)
-    tipo_conteudo = models.CharField(max_length=20, choices=TipoConteudo.choices, default=TipoConteudo.TEXTO)
+    tipo_conteudo = models.CharField(max_length=20, choices=tipos_aula, default='VIDEO')
     conteudo = models.TextField(blank=True, null=True)  # Texto ou link do vídeo
     arquivo = models.FileField(upload_to='aulas/', blank=True, null=True)
 

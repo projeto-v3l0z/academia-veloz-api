@@ -40,7 +40,7 @@ class CursoModuloSerializer(serializers.ModelSerializer):
         model = Curso
         fields = '__all__'
 
-class ModuloSerializer(serializers.ModelSerializer):
+class ModuloSerializer(serializers.ModelSerializer):    
     # Para ler uso todo o objeto
     aulas = AulaSerializer(many=True, read_only=True)
     curso = CursoModuloSerializer(read_only=True)

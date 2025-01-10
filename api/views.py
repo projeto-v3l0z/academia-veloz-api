@@ -90,7 +90,6 @@ class UserViewSet(viewsets.ModelViewSet):
         
         return queryset
     
-
 class CursoViewSet(viewsets.ModelViewSet):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer

@@ -55,9 +55,14 @@ class ModuloSerializer(serializers.ModelSerializer):
 class CursoSerializer(serializers.ModelSerializer):
     # Para ler uso todo o objeto
     modulos = ModuloSerializer(many=True, read_only=True)
+    alunos = UserSerializer(many=True, read_only=True)
     
     # para post uso apenas o id
-    users_id = serializers.ListField(child=serializers.IntegerField(), write_only=True)
+    alunos_id = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=User.objects.all(), 
+        source='alunos',
+    )
 
     class Meta:
         model = Curso

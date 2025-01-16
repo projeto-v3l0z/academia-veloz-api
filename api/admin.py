@@ -5,3 +5,9 @@ from .models import *
 # Register your models here.
 
 admin.site.register(User)
+admin.site.register(Curso)
+admin.site.register(Modulo)
+admin.site.register(Aula)
+admin.site.register(Matricula)
+admin.site.register(AulaConcluida)
+admin.site.register(ArquivoAula)

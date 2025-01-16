@@ -13,8 +13,12 @@ from .serializers import *
 from rest_framework.decorators import action
 from django.db import transaction
 # Create your views here.
+from rest_framework import generics
+from .models import Curso, Modulo, Aula,  Matricula, AulaConcluida, ArquivoAula
+from .serializers import CursoSerializer, ModuloSerializer, AulaSerializer, MatriculaSerializer, AulaConcluidaSerializer, ArquivoAulaSerializer
 
 logger = logging.getLogger(__name__)
+
 
 class UserLoginView(APIView):
     permission_classes = [AllowAny]
@@ -86,3 +90,38 @@ class UserViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(email__icontains=email)
         
         return queryset
+    
+class CursoViewSet(viewsets.ModelViewSet):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
+
+    def get_queryset(self):
+        queryset = Curso.objects.all()
+        tipo = self.request.query_params.get('tipo')
+        if tipo:
+            queryset = queryset.filter(tipo=tipo)
+        return queryset
+
+class ModuloViewSet(viewsets.ModelViewSet):
+    queryset = Modulo.objects.all()
+    serializer_class = ModuloSerializer
+    permission_classes = [IsAuthenticated]
+
+class AulaViewSet(viewsets.ModelViewSet):
+    queryset = Aula.objects.all()
+    serializer_class = AulaSerializer
+    permission_classes = [IsAuthenticated]
+
+class MatriculaViewSet(viewsets.ModelViewSet):
+    queryset = Matricula.objects.all()
+    serializer_class = MatriculaSerializer
+
+class AulaConcluidaViewSet(viewsets.ModelViewSet):
+    queryset = AulaConcluida.objects.all()
+    serializer_class = AulaConcluidaSerializer
+
+class ArquivoAulaViewSet(viewsets.ModelViewSet):
+    queryset = ArquivoAula.objects.all()
+    serializer_class = ArquivoAulaSerializer

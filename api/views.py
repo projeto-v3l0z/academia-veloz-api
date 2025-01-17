@@ -100,8 +100,14 @@ class CursoViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Curso.objects.all()
         tipo = self.request.query_params.get('tipo')
+        nome = self.request.query_params.get('nome')
         if tipo:
             queryset = queryset.filter(tipo=tipo)
+       
+    
+        if nome:
+            queryset = queryset.filter(nome__icontains=nome)
+
         return queryset
 
 class ModuloViewSet(viewsets.ModelViewSet):
